@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>News Details</title>
+
+    <style>
+
+        /* =========================
+           GLOBAL
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background: linear-gradient(
+                135deg,
+                #020617,
+                #0f172a,
+                #172554
+            );
+
+            color: #f8fafc;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            padding: 50px 20px;
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            max-width: 900px;
+
+            margin: auto;
+
+            background: #172033;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.35);
+
+            border: 1px solid #263449;
+        }
+
+
+        /* =========================
+           IMAGE
+        ========================= */
+
+        #img {
+            width: 100%;
+
+            height: 400px;
+
+            object-fit: cover;
+
+            border-radius: 15px;
+
+            display: block;
+
+            margin-bottom: 30px;
+
+            transition: 0.4s;
+        }
+
+        #img:hover {
+            transform: scale(1.01);
+        }
+
+
+        /* =========================
+           TITLE
+        ========================= */
+
+        #title {
+            color: #f8fafc;
+
+            font-size: 38px;
+
+            font-weight: 800;
+
+            line-height: 1.25;
+
+            margin-bottom: 20px;
+
+            border-left: 5px solid #ef4444;
+
+            padding-left: 15px;
+        }
+
+
+        /* =========================
+           NEWS BODY
+        ========================= */
+
+        #body {
+            color: #cbd5e1;
+
+            font-size: 18px;
+
+            line-height: 1.8;
+
+            letter-spacing: 0.2px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            body {
+                padding: 25px 15px;
+            }
+
+            .content {
+                padding: 20px;
+
+                border-radius: 15px;
+            }
+
+            #img {
+                height: 250px;
+
+                border-radius: 12px;
+
+                margin-bottom: 22px;
+            }
+
+            #title {
+                font-size: 28px;
+
+                padding-left: 12px;
+            }
+
+            #body {
+                font-size: 16px;
+
+                line-height: 1.7;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body onload="myfuntion()">
+
+
+    <div class="content">
+
+        <img src="" id="img">
+
+        <h1 id="title"></h1>
+
+        <p id="body"></p>
+
+    </div>
+
+
+    <script>
+
+        async function myfuntion() {
+
+            let url =
+                new URLSearchParams(window.location.search);
+
+
+            let id =
+                url.get("id");
+
+
+            let response =
+                await fetch("https://dummyjson.com/posts/" + id);
+
+
+            let data =
+                await response.json();
+
+
+            document.getElementById("title").innerText = data.title;
+
+
+            console.log(data);
+
+
+            document.getElementById("body").innerHTML = data.body;
+
+
+            document.getElementById("img").src =
+                `https://picsum.photos/600/200?random=${data.id}`;
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

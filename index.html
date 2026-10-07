@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>News Portal</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        /* =========================
+           GLOBAL
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc, #fee2e2);
+            color: #111827;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background: #0f172a !important;
+            padding: 16px 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: #cbd5e1 !important;
+            font-weight: 500;
+            margin: 0 8px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #ef4444 !important;
+        }
+
+
+        /* =========================
+           PAGE TITLE
+        ========================= */
+
+        .page-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 800;
+            color: #fbfbfc;
+            margin: 45px 0 35px;
+        }
+
+        .page-title::after {
+            content: "";
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: #ef4444;
+            margin: 12px auto 0;
+            border-radius: 10px;
+        }
+
+
+        /* =========================
+           NEWS CARD
+        ========================= */
+
+        .card {
+            height: 400px;
+            width: 100%;
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.12);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.2);
+        }
+
+
+        /* =========================
+           CARD IMAGE
+        ========================= */
+
+        .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            transition: 0.4s;
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+
+        /* =========================
+           CARD BODY
+        ========================= */
+
+        .card-body {
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            color: #0f172a;
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           READ MORE
+        ========================= */
+
+        .read-btn {
+            margin-top: auto;
+            align-self: flex-start;
+
+            background: #ef4444;
+            color: white;
+
+            border: none;
+            padding: 9px 18px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .read-btn:hover {
+            background: #dc2626;
+            transform: translateX(4px);
+        }
+
+
+        /* =========================
+           TRENDING SECTION
+        ========================= */
+
+        .trending-box {
+            background: #0f172a;
+            color: white;
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+
+            position: sticky;
+            top: 20px;
+        }
+
+        .trending-title {
+            font-size: 25px;
+            font-weight: 800;
+
+            margin-bottom: 25px;
+
+            border-left: 5px solid #ef4444;
+            padding-left: 12px;
+        }
+
+
+        /* =========================
+           TRENDING NEWS ITEM
+        ========================= */
+
+        .trend-item {
+            display: flex;
+
+            gap: 15px;
+
+            padding-bottom: 18px;
+            margin-bottom: 18px;
+
+            border-bottom: 1px solid #334155;
+        }
+
+        .trend-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .trend-number {
+            font-size: 25px;
+            font-weight: 800;
+            color: #ef4444;
+        }
+
+        .trend-content h5 {
+            font-size: 15px;
+            line-height: 1.4;
+
+            margin: 0 0 6px;
+
+            color: white;
+        }
+
+        .trend-content p {
+            margin: 0;
+
+            font-size: 12px;
+
+            color: #94a3b8;
+        }
+
+
+        /* =========================
+           SECTION TITLE
+        ========================= */
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 800;
+
+            color: white;
+
+            margin-bottom: 25px;
+
+            border-left: 5px solid #ef4444;
+            padding-left: 12px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #0f172a;
+
+            color: #cbd5e1;
+
+            text-align: center;
+
+            padding: 30px 20px;
+
+            margin-top: 60px;
+        }
+
+        footer h3 {
+            color: white;
+
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            font-size: 14px;
+
+            margin: 5px 0;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            .navbar {
+                padding: 14px 18px;
+            }
+
+            .navbar-brand {
+                font-size: 23px;
+            }
+
+            .page-title {
+                font-size: 32px;
+                
+                margin-top: 30px;
+            }
+
+            .card {
+                height: 400px;
+            }
+
+            .trending-box {
+                margin-top: 25px;
+
+                position: static;
+            }
+
+        }
+      body {
+    background: linear-gradient(
+        135deg,
+        #020617,
+        #0f172a,
+        #172554
+    );
+    color: #f8fafc;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+}
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar navbar-expand-lg">
+
+        <div class="container">
+
+            <a class="navbar-brand" href="#">
+                NEWS24
+            </a>
+
+            <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            India
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            World
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Technology
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Sports
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         PAGE TITLE
+    ========================= -->
+
+    <h1 class="page-title">
+        Latest News
+    </h1>
+
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <div class="container">
+
+        <div class="row g-4">
+
+
+            <!-- =====================
+                 LEFT SIDE NEWS
+            ====================== -->
+
+            <div class="col-md-8">
+
+                <h2 class="section-title">
+                    Latest Stories
+                </h2>
+
+
+                <div class="row g-4" id="test">
+
+                    <!-- JavaScript cards yaha aayenge -->
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =====================
+                 RIGHT SIDE TRENDING
+            ====================== -->
+
+            <div class="col-md-4">
+
+                <div class="trending-box">
+
+                    <h2 class="trending-title">
+                        🔥 Trending News
+                    </h2>
+
+
+                    <div class="trend-item">
+
+                        <div class="trend-number">
+                            01
+                        </div>
+
+                        <div class="trend-content">
+
+                            <h5>
+                                Technology is changing the world
+                            </h5>
+
+                            <p>
+                                Technology
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="trend-item">
+
+                        <div class="trend-number">
+                            02
+                        </div>
+
+                        <div class="trend-content">
+
+                            <h5>
+                                Latest updates from around the world
+                            </h5>
+
+                            <p>
+                                World
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="trend-item">
+
+                        <div class="trend-number">
+                            03
+                        </div>
+
+                        <div class="trend-content">
+
+                            <h5>
+                                New developments in artificial intelligence
+                            </h5>
+
+                            <p>
+                                Technology
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="trend-item">
+
+                        <div class="trend-number">
+                            04
+                        </div>
+
+                        <div class="trend-content">
+
+                            <h5>
+                                Sports world gets a major update
+                            </h5>
+
+                            <p>
+                                Sports
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="trend-item">
+
+                        <div class="trend-number">
+                            05
+                        </div>
+
+                        <div class="trend-content">
+
+                            <h5>
+                                Top entertainment news today
+                            </h5>
+
+                            <p>
+                                Entertainment
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <h3>
+            NEWS24
+        </h3>
+
+        <p>
+            Latest news from around the world.
+        </p>
+
+        <p>
+            © 2026 NEWS24. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        async function getNews() {
+
+            let response =
+                await fetch("https://dummyjson.com/posts");
+
+            let data =
+                await response.json();
+
+
+            let news =
+                data.posts.slice(0, 6);
+
+
+            let cards =
+                document.getElementById("test");
+
+
+            cards.innerHTML = "";
+
+
+            news.forEach((item) => {
+
+
+                let title =
+                    item.title.substring(0, 35);
+
+
+                let description =
+                    item.body.substring(0, 90);
+
+
+                cards.innerHTML += `
+
+                    <div class="col-md-6">
+
+                        <div class="card">
+
+                            <img
+                                src="https://picsum.photos/600/200?random=${item.id}"
+                                class="card-img-top"
+                                alt="News Image"
+                            >
+
+
+                            <div class="card-body">
+
+                                <h5 class="card-title">
+
+                                    ${title}...
+
+                                </h5>
+
+
+                                <p class="card-text">
+
+                                    ${description}...
+
+                                </p>
+
+
+                                <button
+                                    class="read-btn"
+                                    onclick="openNews(${item.id})">
+
+                                    Read More →
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+        }
+
+
+
+        function openNews(id) {
+
+            window.location.href =
+                `page.html?id=${id}`;
+
+        }
+
+
+        getNews();
+
+    </script>
+
+
+</body>
+
+</html>
